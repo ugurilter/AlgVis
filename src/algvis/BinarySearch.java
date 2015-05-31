@@ -66,9 +66,9 @@ public class BinarySearch extends JPanel implements Runnable{
         graphics.fillRect(0, 0, 970, 460);                                                               //Background rectangle.
 
         
-        for(int l = 0; l < 8; l++){
-            for(int i = 0; i < numbers.length/8; i++){
-                graphics.setColor(Color.black);                                 
+        for(int l = 0; l < 8; l++){                                                                     //8 Rows.
+            for(int i = 0; i < numbers.length/8; i++){                                                  //16 Columns.
+                graphics.setColor(Color.black);                                                         //Box Borders.                    
                 graphics.drawRect(xCoord, yCoord, BOX_WIDTH + 1, BOX_HEIGHT + 1);                
                 
                 if(currentBox == (l*16 + i) && !found) graphics.setColor(Color.YELLOW);                 //Current box (not finished).
@@ -85,7 +85,8 @@ public class BinarySearch extends JPanel implements Runnable{
         int counter = 0;
         xCoord = 22;
         yCoord = 98;
-        
+                
+        //Box labels.
         for(int l = 0; l < 8; l++){
             for(int i = 0; i < numbers.length/8; i++){
                 graphics.setColor(Color.black);
@@ -106,11 +107,6 @@ public class BinarySearch extends JPanel implements Runnable{
             graphics.setColor(Color.white);
             graphics.setFont(font);
             graphics.drawString("Found in: " + tryCount + " tries.", 365, 60);
-        }
-        else if(currentBox == 129){
-            graphics.setColor(Color.white);
-            graphics.setFont(font);
-            graphics.drawString("Not Found !", 400, 60);
         }
     }
     

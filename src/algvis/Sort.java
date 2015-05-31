@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public final class Sort extends JPanel implements Runnable {
 
     private int numbers[] = new int[50];                                                //Array of numbers.
-    private int waitTime = 0;                                                         //Wait time in between every step.
+    private int waitTime = 0;                                                           //Wait time in between every step.
     private int firstPivot = numbers.length;
     private int secondPivot = numbers.length;
     private String sortType;
@@ -22,7 +22,7 @@ public final class Sort extends JPanel implements Runnable {
     private long time = 0L;
     private long timer;
     
-    Font font = new Font("Arial", 1, 20);                                       //Arial, Bold, 20px.
+    Font font = new Font("Arial", 1, 20);                                               //Arial, Bold, 20px.
 
     public String getSortType() {
         return sortType;
