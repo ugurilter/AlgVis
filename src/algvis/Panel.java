@@ -29,7 +29,11 @@ public class Panel extends javax.swing.JFrame {
         quickSortButton = new javax.swing.JButton();
         insertionSortButton = new javax.swing.JButton();
         seperator = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        linearSearchButton = new javax.swing.JButton();
+        speedSlider = new javax.swing.JSlider();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        binarySearchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -64,10 +68,28 @@ public class Panel extends javax.swing.JFrame {
 
         seperator.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton1.setText("Linear Search");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        linearSearchButton.setText("Linear Search");
+        linearSearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                linearSearchButtonMouseClicked(evt);
+            }
+        });
+
+        speedSlider.setMaximum(1000);
+        speedSlider.setMinimum(1);
+        speedSlider.setMinorTickSpacing(50);
+        speedSlider.setPaintLabels(true);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setSnapToTicks(true);
+
+        jLabel1.setText("Fast");
+
+        jLabel2.setText("Slow");
+
+        binarySearchButton.setText("Binary Search");
+        binarySearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                binarySearchButtonMouseClicked(evt);
             }
         });
 
@@ -77,36 +99,51 @@ public class Panel extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(selectionSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bubbleSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(insertionSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(quickSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(selectionSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bubbleSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(insertionSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(quickSortButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(13, 13, 13)
+                        .addComponent(seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(linearSearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(binarySearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(bubbleSortButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(selectionSortButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(quickSortButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(insertionSortButton)
-                .addContainerGap(12, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seperator)
+                    .addComponent(seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(bubbleSortButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(selectionSortButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(quickSortButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(insertionSortButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(linearSearchButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(binarySearchButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
 
@@ -115,38 +152,51 @@ public class Panel extends javax.swing.JFrame {
 
     private void bubbleSortButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bubbleSortButtonMouseClicked
         Sort sort = new Sort();
-        sort.sortType = "Bubble";
+        sort.setSortType("Bubble");
+        sort.setWaitTime(speedSlider.getValue());
         Thread SortThread = new Thread(sort);
         SortThread.start();
     }//GEN-LAST:event_bubbleSortButtonMouseClicked
 
     private void selectionSortButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectionSortButtonMouseClicked
         Sort sort = new Sort();
-        sort.sortType = "Selection";
+        sort.setSortType("Selection");
+        sort.setWaitTime(speedSlider.getValue());
         Thread SortThread = new Thread(sort);
         SortThread.start();
     }//GEN-LAST:event_selectionSortButtonMouseClicked
 
     private void quickSortButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quickSortButtonMouseClicked
         Sort sort = new Sort();
-        sort.sortType = "Quick";
+        sort.setSortType("Quick");
+        sort.setWaitTime(speedSlider.getValue());
         Thread SortThread = new Thread(sort);
         SortThread.start();
     }//GEN-LAST:event_quickSortButtonMouseClicked
 
     private void insertionSortButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_insertionSortButtonMouseClicked
         Sort sort = new Sort();
-        sort.sortType = "Insertion";
+        sort.setSortType("Insertion");
+        sort.setWaitTime(speedSlider.getValue());
         Thread SortThread = new Thread(sort);
         SortThread.start();
     }//GEN-LAST:event_insertionSortButtonMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void linearSearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linearSearchButtonMouseClicked
         LinearSearch search = new LinearSearch();
-        search.searchType = "Linear";
+        search.setSearchType("Linear");
+        search.setWaitTime(speedSlider.getValue());
         Thread SearchThread = new Thread(search);
         SearchThread.start();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_linearSearchButtonMouseClicked
+
+    private void binarySearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchButtonMouseClicked
+        BinarySearch search = new BinarySearch();
+        search.setSearchType("Binary");
+        search.setWaitTime(speedSlider.getValue());
+        Thread SearchThread = new Thread(search);
+        SearchThread.start();
+    }//GEN-LAST:event_binarySearchButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,11 +234,15 @@ public class Panel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton binarySearchButton;
     private javax.swing.JButton bubbleSortButton;
     private javax.swing.JButton insertionSortButton;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton linearSearchButton;
     private javax.swing.JButton quickSortButton;
     private javax.swing.JButton selectionSortButton;
     private javax.swing.JSeparator seperator;
+    private javax.swing.JSlider speedSlider;
     // End of variables declaration//GEN-END:variables
 }

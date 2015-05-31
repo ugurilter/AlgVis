@@ -7,18 +7,24 @@ import java.awt.Graphics;
 import java.util.Random;
 import javax.swing.JFrame;
 
-public class LinearSearch extends JPanel implements Runnable{
+public class BinarySearch extends JPanel implements Runnable{
    
-    LinearSearch search;
+    BinarySearch search;
     Font font = new Font("Arial", 1, 25); 
     Font labelFont = new Font("Consolas", 0, 15); 
     
     private int currentBox = 0;
     private int tryCount = 0;
     private boolean found = false;
+    
+
 
     private int searchedNumber;
     private int numbers[] = new int[128];                                                //Array of numbers.
+    int left;
+    int right;
+    int middle;
+    
     private int waitTime = 0;
     private String searchType;
 
@@ -38,14 +44,13 @@ public class LinearSearch extends JPanel implements Runnable{
         this.waitTime = waitTime;
     }
 
-    public LinearSearch() {
+    public BinarySearch() {
         generateNumbers();
     }
     
     public void generateNumbers() {
-        Random randomize = new Random();
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = (randomize.nextInt(89) + 10);                          //Generate numbers between 10-99.
+            numbers[i] = i;                  //Generate numbers between 10-99.
         }
     }
     
@@ -79,7 +84,8 @@ public class LinearSearch extends JPanel implements Runnable{
                 
                 if(currentBox == (l*16 + i) && !found) graphics.setColor(Color.YELLOW);
                 else if(currentBox == (l*16 + i) && found) graphics.setColor(Color.GREEN);
-                else graphics.setColor(Color.ORANGE);
+                else if(((l*16 + i) >= left) && ((l*16 + i) <= right)) graphics.setColor(Color.ORANGE);
+                else graphics.setColor(Color.GRAY);
                 graphics.fillRect(xCoord+1, yCoord+1, BOX_WIDTH, BOX_HEIGHT);
                 xCoord += BOX_WIDTH + 10;                
             }
@@ -122,13 +128,12 @@ public class LinearSearch extends JPanel implements Runnable{
     
     @Override
     public void run() {
-        search = new LinearSearch();
+        search = new BinarySearch();
         search.setWaitTime(waitTime);
-        generateNumbers();
 
         JFrame f = new JFrame();
         
-        f.setTitle("Linear Search");
+        f.setTitle("Binary Search");
         f.setLocation(300, 300);                                                //Window start location.
         f.setDefaultCloseOperation(2);                                          //DISPOSE_ON_EXIT.
         f.add(search);
@@ -136,26 +141,34 @@ public class LinearSearch extends JPanel implements Runnable{
         f.setResizable(false);                                                  //Resizable value.
         f.setVisible(true);                                                     //Visibility.
         
-        search.linearSearch();
+        search.binarySearch();
     }    
 
-    private void linearSearch() {
+    public void binarySearch() {
         Random randomize = new Random();
-        searchedNumber = randomize.nextInt(89) + 10;
-        found = false;
+        left = 0;
+        right = numbers.length;
+        searchedNumber = randomize.nextInt(127);
+        redraw();
         
-        for(int i = 0; i < numbers.length; i++){
-            currentBox = i;
-            if(numbers[i] == searchedNumber){                
+        while(left <= right){
+            middle = (left + right) / 2;
+            currentBox = middle;
+            redraw();
+            tryCount++;
+            if(numbers[middle] == searchedNumber){
                 found = true;
-                redraw();
                 break;
             }
-            tryCount++;
+            else if(numbers[middle] > searchedNumber){
+                right = middle;
+            }
+            else if(numbers[middle] < searchedNumber){
+                left = middle;
+            }
             redraw();
+            System.out.println("L: " + left + " -R: " + right + " -M: " + middle);
         }
-        
-        if(!found) currentBox = 129;
         redraw();
     }
 }

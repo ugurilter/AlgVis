@@ -10,20 +10,36 @@ import javax.swing.JPanel;
 
 public final class Sort extends JPanel implements Runnable {
 
-    int numbers[] = new int[50];                                                //Array of numbers.
-    int waitTime = 3;                                                           //Wait time in between every step.
-    int firstPivot = numbers.length;
-    int secondPivot = numbers.length;
-    String sortType;
-    boolean bubbleComplete = false;
-    boolean selectionComplete = false;
-    boolean insertionComplete = false;
-    boolean quickComplete = false;
-    public long time = 0L;
-    public long timer;
+    private int numbers[] = new int[50];                                                //Array of numbers.
+    private int waitTime = 0;                                                         //Wait time in between every step.
+    private int firstPivot = numbers.length;
+    private int secondPivot = numbers.length;
+    private String sortType;
+    private boolean bubbleComplete = false;
+    private boolean selectionComplete = false;
+    private boolean insertionComplete = false;
+    private boolean quickComplete = false;
+    private long time = 0L;
+    private long timer;
     
     Font font = new Font("Arial", 1, 20);                                       //Arial, Bold, 20px.
 
+    public String getSortType() {
+        return sortType;
+    }
+
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
+
+    public int getWaitTime() {
+        return waitTime;
+    }
+
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
+    }
+        
     public Sort() {
         repaint();
         generateNumbers();
@@ -51,6 +67,9 @@ public final class Sort extends JPanel implements Runnable {
         graphics.setColor(Color.PINK);                                          //Background color.
         graphics.fillRect(0, 0, 1015, 180);                                     //Background rectangle.
 
+
+        
+        
         for (int i = 0; i < numbers.length; i++) {
             graphics.setColor(Color.black);                                     //Bar border color.
             graphics.drawRect(xCoord, yCoord, BAR_WIDTH + 2, -numbers[i] - 2);  //Bar border rectangle.
@@ -72,14 +91,10 @@ public final class Sort extends JPanel implements Runnable {
             xCoord = xCoord + 20;                                               //Label spacing.
         }
 
-        if (bubbleComplete || selectionComplete || insertionComplete) {
+        if (bubbleComplete || selectionComplete || insertionComplete || quickComplete) {
             graphics.setColor(Color.black);                                     //Shadow color.
             graphics.setFont(font);
             graphics.drawString(String.valueOf(timer) + " milliseconds", 460, 20);
-//            graphics.setColor(Color.white);                                     //Inner color.
-//            font.deriveFont(18);
-//            graphics.setFont(font);
-//            graphics.drawString(String.valueOf(timer) + " milliseconds", 461, 19);
         }
     }
 
@@ -149,22 +164,23 @@ public final class Sort extends JPanel implements Runnable {
         stopTime();
         redraw();
     }
+    
+    /* QUICKSORT CALLER (FOR TIMER) */
+    public void quickS(){
+        startTime();
+        quickSort(0, numbers.length-1);
+        stopTime();
+        quickComplete = true;
+        redraw();
+    }
 
     /* QUICK SORT ALGORITHM */
     public void quickSort(int lowerIndex, int higherIndex) {
-
         int i = lowerIndex;
         int j = higherIndex;
-        // calculate pivot number, I am taking pivot as middle index number
         int pivot = numbers[lowerIndex + (higherIndex - lowerIndex) / 2];
         // Divide into two arrays
         while (i <= j) {
-            /**
-             * In each iteration, we will identify a number from left side which
-             * is greater then the pivot value, and also we will identify a
-             * number from right side which is less then the pivot value. Once
-             * the search is done, then we exchange both numbers.
-             */
             while (numbers[i] < pivot) {
                 firstPivot = i;
                 redraw();
@@ -180,12 +196,10 @@ public final class Sort extends JPanel implements Runnable {
                 firstPivot = i;
                 secondPivot = j;
                 redraw();
-                //move index to next position on both sides
                 i++;
                 j--;
             }
         }
-        // call quickSort() method recursively
         if (lowerIndex < j) {
             quickSort(lowerIndex, j);
         }
@@ -197,7 +211,7 @@ public final class Sort extends JPanel implements Runnable {
         redraw();
     }
 
-    /* INSERTION SORT ALGORITHM */
+    /* INSERTION SORT ALGORITHM */ 
     public void insertionSort() {
         startTime();
         for (int i = 1; i < this.numbers.length; i++) {
@@ -230,17 +244,19 @@ public final class Sort extends JPanel implements Runnable {
     @Override
     public void run() {
         Sort sort = new Sort();
+        sort.setWaitTime(waitTime);
         generateNumbers();
-
+        
         JFrame f = new JFrame();
-
+        
         f.setLocation(300, 300);                                                //Window start location.
         f.setDefaultCloseOperation(2);                                          //DISPOSE_ON_EXIT.
         f.add(sort);
         f.setSize(1015, 180);                                                   //Window Size.
         f.setResizable(false);                                                  //Resizable value.
         f.setVisible(true);                                                     //Visibility.
-
+        
+               
         switch (sortType) {
             case "Bubble":
                 f.setTitle("Bubble Sort");
@@ -252,7 +268,7 @@ public final class Sort extends JPanel implements Runnable {
                 break;
             case "Quick":
                 f.setTitle("Quick Sort");
-                sort.quickSort(0, numbers.length - 1);
+                sort.quickS();
                 break;
             case "Insertion":
                 f.setTitle("Insertion Sort");
