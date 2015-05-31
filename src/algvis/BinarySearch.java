@@ -16,25 +16,14 @@ public class BinarySearch extends JPanel implements Runnable{
     private int currentBox = 0;
     private int tryCount = 0;
     private boolean found = false;
-    
-
 
     private int searchedNumber;
     private int numbers[] = new int[128];                                                //Array of numbers.
-    int left;
-    int right;
-    int middle;
+    private int left;
+    private int right;
+    private int middle;
     
     private int waitTime = 0;
-    private String searchType;
-
-    public String getSearchType() {
-        return searchType;
-    }
-
-    public void setSearchType(String searchType) {
-        this.searchType = searchType;
-    }
     
     public int getWaitTime() {
         return waitTime;
@@ -50,7 +39,7 @@ public class BinarySearch extends JPanel implements Runnable{
     
     public void generateNumbers() {
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = i;                  //Generate numbers between 10-99.
+            numbers[i] = i;                                                             //Generate sorted numbers between 0-127
         }
     }
     
@@ -73,8 +62,8 @@ public class BinarySearch extends JPanel implements Runnable{
         int xCoord = 5;
         int yCoord = 80;
 
-        graphics.setColor(Color.darkGray);                                          //Background color.
-        graphics.fillRect(0, 0, 970, 460);                                      //Background rectangle.
+        graphics.setColor(Color.darkGray);                                                               //Background color.
+        graphics.fillRect(0, 0, 970, 460);                                                               //Background rectangle.
 
         
         for(int l = 0; l < 8; l++){
@@ -82,10 +71,10 @@ public class BinarySearch extends JPanel implements Runnable{
                 graphics.setColor(Color.black);                                 
                 graphics.drawRect(xCoord, yCoord, BOX_WIDTH + 1, BOX_HEIGHT + 1);                
                 
-                if(currentBox == (l*16 + i) && !found) graphics.setColor(Color.YELLOW);
-                else if(currentBox == (l*16 + i) && found) graphics.setColor(Color.GREEN);
-                else if(((l*16 + i) >= left) && ((l*16 + i) <= right)) graphics.setColor(Color.ORANGE);
-                else graphics.setColor(Color.GRAY);
+                if(currentBox == (l*16 + i) && !found) graphics.setColor(Color.YELLOW);                 //Current box (not finished).
+                else if(currentBox == (l*16 + i) && found) graphics.setColor(Color.GREEN);              //Current box (when finished).
+                else if(((l*16 + i) >= left) && ((l*16 + i) <= right)) graphics.setColor(Color.ORANGE); //Boxes between left & right.
+                else graphics.setColor(Color.GRAY);                                                     //Rest of the boxes.
                 graphics.fillRect(xCoord+1, yCoord+1, BOX_WIDTH, BOX_HEIGHT);
                 xCoord += BOX_WIDTH + 10;                
             }

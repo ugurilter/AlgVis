@@ -184,7 +184,6 @@ public class Panel extends javax.swing.JFrame {
 
     private void linearSearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linearSearchButtonMouseClicked
         LinearSearch search = new LinearSearch();
-        search.setSearchType("Linear");
         search.setWaitTime(speedSlider.getValue());
         Thread SearchThread = new Thread(search);
         SearchThread.start();
@@ -192,7 +191,6 @@ public class Panel extends javax.swing.JFrame {
 
     private void binarySearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchButtonMouseClicked
         BinarySearch search = new BinarySearch();
-        search.setSearchType("Binary");
         search.setWaitTime(speedSlider.getValue());
         Thread SearchThread = new Thread(search);
         SearchThread.start();

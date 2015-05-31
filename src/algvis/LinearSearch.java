@@ -20,15 +20,6 @@ public class LinearSearch extends JPanel implements Runnable{
     private int searchedNumber;
     private int numbers[] = new int[128];                                                //Array of numbers.
     private int waitTime = 0;
-    private String searchType;
-
-    public String getSearchType() {
-        return searchType;
-    }
-
-    public void setSearchType(String searchType) {
-        this.searchType = searchType;
-    }
     
     public int getWaitTime() {
         return waitTime;
